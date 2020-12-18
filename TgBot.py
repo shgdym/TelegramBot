@@ -15,7 +15,7 @@ class TgBot:
         """
         :param send_type:[photo,audio,video,document]
         :param caption: caption
-        :param paths:
+        :param paths: list of media url
         :return: http response
         """
         params = {
