@@ -11,10 +11,11 @@ class TgBot:
         self.chat_id = chat_id
         self.base_url = f'https://api.telegram.org/bot{apikey}'
 
-    def send_photos(self, photo_paths, photo_caption):
+    def sendMediaGroup(self, paths, caption='caption', send_type='photo'):
         """
-        :param photo_caption:
-        :param photo_paths:
+        :param send_type:[photo,audio,video,document]
+        :param caption: caption
+        :param paths:
         :return: http response
         """
         params = {
@@ -22,12 +23,12 @@ class TgBot:
             'media': [],
         }
 
-        for path in photo_paths:
+        for path in paths:
             params['media'].append(
                 {
-                    'type': 'photo',
+                    'type': send_type,
                     'media': path,
-                    'caption': photo_caption
+                    'caption': caption
                 }
             )
 
@@ -36,7 +37,7 @@ class TgBot:
 
         return requests.post(url, data=params, timeout=120)
 
-    def send_text(self, text):
+    def sendMessage(self, text):
         """
         :param text: str
         :return: http response
